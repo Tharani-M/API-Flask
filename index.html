@@ -1,0 +1,39 @@
+<html></html>
+    <head>
+        <title>Myform</title>
+    </head>
+    <body>
+         <form>
+            <label for="name" id="uname">Username</label>
+            <input type="text" id="usrname"  name="myname" required autocomplete="name" onsubmit="credss()"><br><br>
+            <label for="pwd">Password</label>
+            <input type="password" id="pwd"  name="pwd" required autocomplete="current-password" onsubmit="credss()"><br><br>
+            <button type="submit" id="submitbtn" onclick="credss()">Submit</button>
+        </form> 
+        <script>
+            function credss(){
+                let un = document.getElementById('usrname').value;
+            let pwd = document.getElementById('pwd').value;
+            let creds = btoa(`${un}:${pwd}`)
+         const form = document.querySelector('form')
+         form.addEventListener('submit',async (event)=>{
+               event.preventDefault();
+               const resp = await fetch('http://127.0.0.1:5000/secret',{
+                method:'POST',
+                mode:"cors",
+                headers:{
+                    'Accept':'application/json',
+                    'Authorization' : `Basic ${creds}`
+                }
+                   });
+                   const result = await resp.json();
+                   if (result){
+                    window.location.href = "http://127.0.0.1:3000/users.html";
+                   }
+
+                console.log(result);
+         }) 
+        }
+        </script>
+    </body>
+</html>
