@@ -34,11 +34,6 @@ def table():
           if i['usertype'] == usertype  :
                res.append(i)
      return res 
-               
-     
-     
-
-    
 
 if __name__ == '__main__':
     app.run(port=3000)

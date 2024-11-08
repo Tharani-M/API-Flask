@@ -1,5 +1,10 @@
 FROM python:3.10
 EXPOSE 5000
-RUN pip install --no-cache-dir flask
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+RUN pip install flask
+RUN pip install flask-cors
+RUN pip install flask-httpauth
 COPY . .
-CMD ["flask","run","--host=0.0.0.0"]
+CMD ["flask","run","--host","0.0.0.0"]
